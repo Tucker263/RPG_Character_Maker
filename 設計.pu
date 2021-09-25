@@ -57,14 +57,14 @@ class RPGCharacter{
     + setJob(job: String)
     + setImgUrl(gender: String, job: String)
     + setStatus(status: Status)
-    + setTraits(traitsWapper: TraitsWrapper)
+    + setTraitsWrapper(traitsWapper: TraitsWrapper)
 
     + getName(): String
     + getGender(): String
     + getJob(): String
     + getImgUrl(): String
     + getStatus(): Status
-    + getTraits(): TraitsWrapper
+    + getTraitsWrapper(): TraitsWrapper
 }
 
 '依存関係
