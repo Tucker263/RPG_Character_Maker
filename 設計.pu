@@ -32,7 +32,7 @@ class Status{
 class TraitsWrapper{
     - String traits
 
-    + Trait(traits: String)
+    + TraitsWrapper(traits: String)
     + getTraits(): String
     + fetchStrengthWithStatus(status: Status): int
     + fetchgilityWithStatus(status: Status): int
@@ -70,8 +70,8 @@ class RPGCharacter{
 '依存関係
 TraitsWrapper ..> Status
 'コンポジション
-RPGCharacter --> TraitsWrapper
-RPGCharacter --> Status
+RPGCharacter --* TraitsWrapper
+RPGCharacter --* Status
 
 
 @enduml
