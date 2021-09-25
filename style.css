@@ -1,0 +1,12 @@
+.img-fit {
+    object-fit: contain;
+}
+
+.white-border{
+    border: solid white 4px;
+    border-radius: 5px;
+}
+
+.fontSize-1p25{
+    font-size: 1.25rem;
+}
