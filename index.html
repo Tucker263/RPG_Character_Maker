@@ -17,7 +17,7 @@
 </head>
 <body>
 
-    <div class="bg-success text-white d-flex justify-content-center">
+    <div class="bg-success text-white d-flex justify-content-center" id="gameMaker">
         <div class="container pt-5 pb-5">
     
             <p class="fontSize-1p25">表示エリア</p>
@@ -31,35 +31,34 @@
                 <div class="col-12 col-md-9 fontSize-1p25">
                     <div class="p-2">
                         <div class="white-border p-2">
-                            <p>Name: Unknown</p>
-                            <p>Class: hero</p>
-                            <p>Gender: male</p>
-                            <p>Traits: everyman</p>
+                            <p>Name: {{ name }}</p>
+                            <p>Class: {{ job }}</p>
+                            <p>Gender: {{ gender }}</p>
+                            <p>Traits: {{ traits }}</p>
                         </div>
                     </div>
                     <div class="p-2">
                         <div class="white-border p-2">
-                            <p>Strength:10</p>
-                            <p>Agility:10</p>
-                            <p>Resilience:10</p>
-                            <p>Wisdom:10</p>
-                            <p>Luck:10</p>
+                            <p>Strength:{{ strength }}</p>
+                            <p>Agility:{{ agility }}</p>
+                            <p>Resilience:{{ resilience }}</p>
+                            <p>Wisdom:{{ wisdom }}</p>
+                            <p>Luck:{{ luck }}</p>
                         </div>
                     </div>
                 </div>
             </div>
     
             <!-- 入力フォーム -->
-    
             <div class="pt-5 pb-4">
                 <p class="fontSize-1p25">入力エリア</p>
     
                 <div class="form-group mb-4 d-sm-flex align-items-center">
                     <div class="mb-2 col-sm-1">
-                        <label for="nameText">Name</label>
+                        <label for="nameInput">Name</label>
                     </div>
                     <div class="col-sm-3 pl-2">
-                        <input type="text" class="form-control" value="Unknown" id="nameText">
+                        <input type="text" class="form-control" id="nameInput" v-model="person.name">
                     </div>
                 </div>
     
@@ -67,11 +66,11 @@
                     <p class="mb-2 col-sm-1">Gender</p>
                     <div class="col-sm-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleOption" value="male">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleOption" value="male" v-model="person.gender">
                             <label class="form-check-label" for="maleOption">Male</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleOption" value="female">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleOption" value="female" v-model="person.gender">
                             <label class="form-check-label" for="femaleOption">Female</label>
                         </div>
                     </div>
@@ -82,7 +81,7 @@
                         <label for="classOption">Class</label>
                     </div>
                     <div class="col-sm-3">
-                        <select class="custom-select form-control" id="classOption">
+                        <select class="custom-select form-control" id="classOption" v-model="person.job">
                             <option value="hero">hero</option>
                             <option value="warrior">warrior</option>
                             <option value="mage">mage</option>
@@ -95,7 +94,7 @@
                         <label for="traitsOption">Traits</label>
                     </div>
                     <div class="col-sm-3">
-                        <select class="custom-select form-control" id="traitsOption">
+                        <select class="custom-select form-control" id="traitsOption" v-model="person.getTraitsWrapper().traits">
                             <option value="everyman">everyman</option>
                             <option value="bat out of hell">bat out of hell</option>
                             <option value="lucky devil">lucky devil</option>
