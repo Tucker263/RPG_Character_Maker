@@ -1,0 +1,77 @@
+@startuml
+'------------Model部分の設計----------------
+
+class Config{
+    + static final String imgUrl
+    + static final String[] gender
+    + static final String[] job
+}
+
+class TraitsReader{
+    - static final String[] basicTraitsArr
+
+    + static getTraitsArr(gender: String, job: String): String[]
+}
+
+'コンストラクタは引数なしで初期の状態を設定
+class Status{
+    - int strength
+    - int agility
+    - int resilience
+    - int wisdom
+    - int luck
+
+    + Status()
+    + getStrength(): int
+    + getAgility(): int
+    + getResilience(): int
+    + getWisdom(): int
+    + getLuck(): int
+}
+
+class TraitsWrapper{
+    - String traits
+
+    + Trait(traits: String)
+    + getTraits(): String
+    + fetchStrengthWithStatus(status: Status): int
+    + fetchgilityWithStatus(status: Status): int
+    + fetchResilienceWithStatus(status: Status): int
+    + fetchWisdomWithStatus(status: Status): int
+    + fetchLuckWithStatus(status: Status): int
+}
+
+'コンストラクタは引数なしで初期の状態を設定
+class RPGCharacter{
+    - String name
+    - String gender
+    - String job
+    - String imgUrl
+    - Status status
+    - TraitsWrapper traitsWrapper
+
+    + RPGCharacter()
+
+    + setName(name: String)
+    + setGender(gender: String)
+    + setJob(job: String)
+    + setImgUrl(gender: String, job: String)
+    + setStatus(status: Status)
+    + setTraits(traitsWapper: TraitsWrapper)
+
+    + getName(): String
+    + getGender(): String
+    + getJob(): String
+    + getImgUrl(): String
+    + getStatus(): Status
+    + getTraits(): TraitsWrapper
+}
+
+'依存関係
+TraitsWrapper ..> Status
+'コンポジション
+RPGCharacter --> TraitsWrapper
+RPGCharacter --> Status
+
+
+@enduml
