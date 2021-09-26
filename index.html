@@ -61,13 +61,9 @@
                 <div class="form-group mb-4 d-sm-flex align-items-center">
                     <p class="mb-2 col-sm-1">Gender</p>
                     <div class="col-sm-3">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleOption" value="male" v-model="person.gender">
-                            <label class="form-check-label" for="maleOption">Male</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleOption" value="female" v-model="person.gender">
-                            <label class="form-check-label" for="femaleOption">Female</label>
+                        <div class="form-check form-check-inline" v-for="gender in genderArr">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" v-model="person.gender" v-bind:value="gender" v-bind:id="gender">
+                            <label class="form-check-label" v-bind:for="gender">{{ gender }}</label>
                         </div>
                     </div>
                 </div>
