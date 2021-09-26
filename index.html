@@ -20,17 +20,17 @@
             <div class="bg-dark d-flex flex-wrap align-items-center p-2">
                 <div class=" col-12 col-md-3">
                     <div class="white-border img-fit">
-                        <img src="/img/dashboard/lessons/quickstart/male-mage.png" class="img-fluid">
+                        <img class="img-fluid" v-bind:src="person.getImgUrl()">
                     </div>
                 </div>
     
                 <div class="col-12 col-md-9 fontSize-1p25">
                     <div class="p-2">
                         <div class="white-border p-2">
-                            <p>Name: {{ name }}</p>
-                            <p>Class: {{ job }}</p>
-                            <p>Gender: {{ gender }}</p>
-                            <p>Traits: {{ traits }}</p>
+                            <p>Name: {{ person.name }}</p>
+                            <p>Class: {{ person.job }}</p>
+                            <p>Gender: {{ person.gender }}</p>
+                            <p>Traits: {{ person.traitsWrapper.traits }}</p>
                         </div>
                     </div>
                     <div class="p-2">
@@ -78,9 +78,7 @@
                     </div>
                     <div class="col-sm-3">
                         <select class="custom-select form-control" id="classOption" v-model="person.job">
-                            <option value="hero">hero</option>
-                            <option value="warrior">warrior</option>
-                            <option value="mage">mage</option>
+                            <option v-for="job in jobArr" v-bind:value="job">{{ job }}</option>
                         </select>
                     </div>
                 </div>
@@ -90,10 +88,8 @@
                         <label for="traitsOption">Traits</label>
                     </div>
                     <div class="col-sm-3">
-                        <select class="custom-select form-control" id="traitsOption" v-model="person.getTraitsWrapper().traits">
-                            <option value="everyman">everyman</option>
-                            <option value="bat out of hell">bat out of hell</option>
-                            <option value="lucky devil">lucky devil</option>
+                        <select class="custom-select form-control" id="traitsOption" v-model="person.traitsWrapper.traits">
+                            <option v-for="traits in traitsArr" v-bind:value="traits">{{ traits }}</option>
                         </select>
                     </div>
                 </div>

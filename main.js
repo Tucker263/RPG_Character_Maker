@@ -12,9 +12,9 @@ class TraitsReader{
     static getTraitsArr(gender, job){
         let traitsArr =　JSON.parse(JSON.stringify(TraitsReader.basicTraitsArr));
 
-        if(gender === "male") traitsArr.append("lucky devil");
-        if(gender === "female") traitsArr.append("tomboy");
-        if(job === "hero") traitsArr.append("brave");
+        if(gender === "male") traitsArr.push("lucky devil");
+        if(gender === "female") traitsArr.push("tomboy");
+        if(job === "hero") traitsArr.push("brave");
 
         return traitsArr;
     }
@@ -169,21 +169,11 @@ class RPGCharacter{
 var gameMaker = new Vue({
     el: "#gameMaker",
     data: {
-        person: new RPGCharacter()
+        person: new RPGCharacter(),
+        genderArr: config.gender,
+        jobArr: config.job
     },
     computed: {
-        name: function(){
-            return this.person.getName();
-        },
-        job: function(){
-            return this.person.getJob();
-        },
-        gender: function(){
-            return this.person.getGender();
-        },
-        traits: function(){
-            return this.person.getTraitsWrapper().getTraits();
-        },
         strength: function(){
             let traitsWrapper = this.person.getTraitsWrapper();
             let status = this.person.getStatus();
@@ -208,6 +198,11 @@ var gameMaker = new Vue({
             let traitsWrapper = this.person.getTraitsWrapper();
             let status = this.person.getStatus();
             return traitsWrapper.fetchLuckWithStatus(status);
+        },
+        traitsArr: function(){
+            let gender = this.person.getGender();
+            let job = this.person.getJob();
+            return TraitsReader.getTraitsArr(gender, job);
         }
     }
 });
