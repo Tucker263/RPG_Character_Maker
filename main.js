@@ -1,9 +1,11 @@
+//MVVM(Model, View, ModelView)パターン
+
 //------------Modelの設計----------------
 //読み取り専用
 const config = {
     imgUrl: "https://recursionist.io/img/dashboard/lessons/quickstart/",
-    gender: ["male", "female"],
-    job: ["hero", "warrior", "mage"]
+    genderArr: ["male", "female"],
+    jobArr: ["hero", "warrior", "mage"]
 };
 
 class TraitsReader{
@@ -19,15 +21,42 @@ class TraitsReader{
         return traitsArr;
     }
 }
+//ここまで読み取り専用
 
-//本実装
 class Status{
     constructor(){
-        this.strength = 10;
-        this.agility = 10;
-        this.resilience = 10;
-        this.wisdom = 10;
-        this.luck = 10;
+        this.strength = 0;
+        this.agility = 0;
+        this.resilience = 0;
+        this.wisdom = 0;
+        this.luck = 0;
+
+        //初期状態の設定
+        this.setStrength(10);
+        this.setAgility(10);
+        this.setResilience(10);
+        this.setWisdom(10);
+        this.setLuck(10);
+    }
+
+    setStrength(value){
+        this.strength = value;
+    }
+
+    setAgility(value){
+        this.agility = value;
+    }
+
+    setResilience(value){
+        this.resilience = value;
+    }
+
+    setWisdom(value){
+        this.wisdom  = value;
+    }
+
+    setLuck(value){
+        this.luck = value;
     }
 
     getStrength(){
@@ -53,6 +82,13 @@ class Status{
 
 class TraitsWrapper{
     constructor(traits){
+        this.traits = "";
+
+        //初期状態の設定
+        this.setTraits(traits);
+    }
+
+    setTraits(traits){
         this.traits = traits;
     }
 
@@ -99,16 +135,22 @@ class TraitsWrapper{
     }
 }
 
-
 class RPGCharacter{
     constructor(){
-        //初期状態
-        this.name = "Unknown";
-        this.gender = "male";
-        this.job = "hero";
-        this.imgUrl = config.imgUrl + `${this.gender}-${this.job}.png`;
-        this.status = new Status();
-        this.traitsWrapper = new TraitsWrapper("everyman");
+        this.name = "";
+        this.gender = "";
+        this.job = "";
+        this.imgUrl = "";
+        this.status = null;
+        this.traitsWrapper = null;
+
+        //初期状態の設定
+        this.setName("Unknown");
+        this.setGender("male");
+        this.setJob("hero");
+        this.setImgUrl(this.gender, this.job);
+        this.setStatus(new Status());
+        this.setTraitsWrapper(new TraitsWrapper("everyman"));
     }
 
     setName(name){
@@ -148,7 +190,7 @@ class RPGCharacter{
     }
 
     getImgUrl(){
-        return config.imgUrl + `${this.gender}-${this.job}.png`;
+        return this.imgUrl;
     }
 
     getStatus(){
@@ -160,48 +202,43 @@ class RPGCharacter{
     }
 }
 
-//Controlerの設計?、実際にはMVVMのVM(ViewModel)にあたる
-//MVVMはMVCから派生した
-//VMは双方向バインディングの管理の仕組み？
-//VueはVMオブジェクト
-//つまり、VMの部分の管理を任せることができるということ
-//どうデータをどう更新するかはcomputedなどで自分で定義する
-var gameMaker = new Vue({
+//------------ViewModelの設計----------------
+//VueインスタンスはViewModelそのもの
+var vmGameMaker = new Vue({
     el: "#gameMaker",
     data: {
         person: new RPGCharacter(),
-        genderArr: config.gender,
-        jobArr: config.job
+        genderArr: config.genderArr,
+        jobArr: config.jobArr
     },
     computed: {
-        strength: function(){
-            let traitsWrapper = this.person.getTraitsWrapper();
-            let status = this.person.getStatus();
-            return traitsWrapper.fetchStrengthWithStatus(status);
+        imgUrl: function(){
+            let gender = this.person.getGender();
+            let job = this.person.getJob();
+
+            this.person.setImgUrl(gender, job);
+    
+            return this.person.getImgUrl();
         },
-        agility: function(){
-            let traitsWrapper = this.person.getTraitsWrapper();
-            let status = this.person.getStatus();
-            return traitsWrapper.fetchAgilityWithStatus(status);
-        },
-        resilience: function(){
-            let traitsWrapper = this.person.getTraitsWrapper();
-            let status = this.person.getStatus();
-            return traitsWrapper.fetchResilienceWithStatus(status);
-        },
-        wisdom: function(){
-            let traitsWrapper = this.person.getTraitsWrapper();
-            let status = this.person.getStatus();
-            return traitsWrapper.fetchWisdomWithStatus(status);
-        },
-        luck: function(){
-            let traitsWrapper = this.person.getTraitsWrapper();
-            let status = this.person.getStatus();
-            return traitsWrapper.fetchLuckWithStatus(status);
+        fetchStatusValue: function(){
+            return function(species){
+                let traitsWrapper = this.person.getTraitsWrapper();
+                let status = this.person.getStatus();
+
+                switch(species){
+                    case "strength": return traitsWrapper.fetchStrengthWithStatus(status);
+                    case "agility": return traitsWrapper.fetchAgilityWithStatus(status);
+                    case "resilience": return traitsWrapper.fetchResilienceWithStatus(status);
+                    case "wisdom": return traitsWrapper.fetchWisdomWithStatus(status);
+                    case "luck": return traitsWrapper.fetchLuckWithStatus(status);
+                }
+                return 0;
+            };
         },
         traitsArr: function(){
             let gender = this.person.getGender();
             let job = this.person.getJob();
+
             return TraitsReader.getTraitsArr(gender, job);
         }
     }

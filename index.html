@@ -13,15 +13,16 @@
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>   
 <body>
-            
+    
     <div class="bg-success text-white d-flex justify-content-center" id="gameMaker">
         <div class="container pt-5 pb-5">
     
+            <!-- 表示エリア -->
             <p class="fontSize-1p25">表示エリア</p>
             <div class="bg-dark d-flex flex-wrap align-items-center p-2">
                 <div class=" col-12 col-md-3">
                     <div class="white-border img-fit">
-                        <img class="img-fluid" v-bind:src="person.getImgUrl()">
+                        <img class="img-fluid" v-bind:src="imgUrl">
                     </div>
                 </div>
     
@@ -36,17 +37,17 @@
                     </div>
                     <div class="p-2">
                         <div class="white-border p-2">
-                            <p>Strength:{{ strength }}</p>
-                            <p>Agility:{{ agility }}</p>
-                            <p>Resilience:{{ resilience }}</p>
-                            <p>Wisdom:{{ wisdom }}</p>
-                            <p>Luck:{{ luck }}</p>
+                            <p>Strength:{{ fetchStatusValue("strength") }}</p>
+                            <p>Agility:{{ fetchStatusValue("agility") }}</p>
+                            <p>Resilience:{{ fetchStatusValue("resilience") }}</p>
+                            <p>Wisdom:{{ fetchStatusValue("wisdom") }}</p>
+                            <p>Luck:{{ fetchStatusValue("luck") }}</p>
                         </div>
                     </div>
                 </div>
             </div>
     
-            <!-- 入力フォーム -->
+            <!-- 入力エリア -->
             <div class="pt-5 pb-4">
                 <p class="fontSize-1p25">入力エリア</p>
     
@@ -71,10 +72,10 @@
     
                 <div class="form-group mb-4 d-sm-flex align-items-center">
                     <div class="mb-2 col-sm-1">
-                        <label for="classOption">Class</label>
+                        <label for="job">Class</label>
                     </div>
                     <div class="col-sm-3">
-                        <select class="custom-select form-control" id="classOption" v-model="person.job">
+                        <select class="custom-select form-control" id="job" v-model="person.job">
                             <option v-for="job in jobArr" v-bind:value="job">{{ job }}</option>
                         </select>
                     </div>
@@ -82,10 +83,10 @@
     
                 <div class="form-group mb-4 d-sm-flex align-items-center">
                     <div class="mb-2 col-sm-1">
-                        <label for="traitsOption">Traits</label>
+                        <label for="traits">Traits</label>
                     </div>
                     <div class="col-sm-3">
-                        <select class="custom-select form-control" id="traitsOption" v-model="person.traitsWrapper.traits">
+                        <select class="custom-select form-control" id="traits" v-model="person.traitsWrapper.traits">
                             <option v-for="traits in traitsArr" v-bind:value="traits">{{ traits }}</option>
                         </select>
                     </div>
