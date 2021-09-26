@@ -1,10 +1,11 @@
 @startuml
-'------------Model部分の設計----------------
+'--------MVVM(Model, View, ModelView)パターン--------
+'------------Modelの設計----------------
 
 class Config{
     + static final String imgUrl
-    + static final String[] gender
-    + static final String[] job
+    + static final String[] genderArr
+    + static final String[] jobArr
 }
 
 class TraitsReader{
@@ -13,7 +14,6 @@ class TraitsReader{
     + static getTraitsArr(gender: String, job: String): String[]
 }
 
-'コンストラクタは引数なしで初期の状態を設定
 class Status{
     - int strength
     - int agility
@@ -22,6 +22,12 @@ class Status{
     - int luck
 
     + Status()
+    + setStrength()
+    + setAgility()
+    + setResilience()
+    + setWisdom()
+    + setLuck()
+
     + getStrength(): int
     + getAgility(): int
     + getResilience(): int
@@ -33,7 +39,11 @@ class TraitsWrapper{
     - String traits
 
     + TraitsWrapper(traits: String)
+
+    + setTraits()
+
     + getTraits(): String
+
     + fetchStrengthWithStatus(status: Status): int
     + fetchgilityWithStatus(status: Status): int
     + fetchResilienceWithStatus(status: Status): int
@@ -41,7 +51,6 @@ class TraitsWrapper{
     + fetchLuckWithStatus(status: Status): int
 }
 
-'コンストラクタは引数なしで初期の状態を設定
 class RPGCharacter{
     - String name
     - String gender
@@ -67,6 +76,11 @@ class RPGCharacter{
     + getTraitsWrapper(): TraitsWrapper
 }
 
+'------------ViewModelの設計----------------
+'Vueは書いていない、VueはViewModelそのもの
+
+
+'------------各クラスの関係----------------
 '依存関係
 TraitsWrapper ..> Status
 'コンポジション

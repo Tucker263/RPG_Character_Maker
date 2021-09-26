@@ -1,6 +1,6 @@
 //MVVM(Model, View, ModelView)パターン
 
-//------------Modelの設計----------------
+//------------Modelの実装----------------
 //読み取り専用
 const config = {
     imgUrl: "https://recursionist.io/img/dashboard/lessons/quickstart/",
@@ -31,7 +31,7 @@ class Status{
         this.wisdom = 0;
         this.luck = 0;
 
-        //初期状態の設定
+        //初期のステータスはすべて10にセット
         this.setStrength(10);
         this.setAgility(10);
         this.setResilience(10);
@@ -144,7 +144,7 @@ class RPGCharacter{
         this.status = null;
         this.traitsWrapper = null;
 
-        //初期状態の設定
+        //初期状態は以下のようにセット
         this.setName("Unknown");
         this.setGender("male");
         this.setJob("hero");
@@ -202,7 +202,7 @@ class RPGCharacter{
     }
 }
 
-//------------ViewModelの設計----------------
+//------------ViewModelの実装----------------
 //VueインスタンスはViewModelそのもの
 var vmGameMaker = new Vue({
     el: "#gameMaker",
