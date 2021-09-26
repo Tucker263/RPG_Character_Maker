@@ -1,4 +1,4 @@
-//MVVM(Model, View, ModelView)パターン
+//MVVM(Model, View, ViewModel)パターン
 
 //------------Modelの実装----------------
 //読み取り専用
